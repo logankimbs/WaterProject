@@ -3,19 +3,17 @@
 }
 @model ProjectsViewModel
 
-<h1>The Water Project</h1>
 
 @foreach (ProjectModel project in Model.Projects)
 {
-    <h2>@project.ProjectName</h2>
-
-    <ul>
-        <li>Project Type: @project.ProjectType</li>
-        <li>Regional Program: @project.ProjectRegionalProgram</li>
-        <li>Impact: @project.ProjectImpact Served</li>
-        <li>Project Phase: @project.ProjectPhase</li>
-        <li>Project Status: @project.ProjectFunctionalityStatus</li>
-    </ul>
+    <partial name="ProjectSummary" model="project"/>
 }
 
-<div page-blah="@Model.PageInfo" page-action="Index"></div>
+<div page-blah="@Model.PageInfo"
+     page-action="Index"
+     page-class="btn"
+     page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary"
+     page-class-enabled="true"
+     class="btn-group m-1">
+</div>

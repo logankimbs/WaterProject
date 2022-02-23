@@ -19,18 +19,25 @@ namespace WaterProject.Controllers
             Repository = repository;
         }
 
-        public IActionResult Index(int pageNum = 1)
+        public IActionResult Index(string projectType, int pageNum = 1)
         {
             int pageSize = 5;
             var pageData = new ProjectsViewModel
+
             {
                 Projects = Repository.Projects
-                            .OrderBy(p => p.ProjectName)
-                            .Skip((pageNum - 1) * pageSize)
-                            .Take(pageSize),
+                    .Where(p => p.ProjectType == projectType || projectType == null)
+                    .OrderBy(p => p.ProjectName)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
                 PageInfo = new PageInformation
                 {
-                    NumOfProjects = Repository.Projects.Count(),
+                    NumOfProjects = (
+                        projectType == null ?
+                        Repository.Projects.Count() :
+                        Repository.Projects.Where(x => x.ProjectType == projectType).Count()
+                    ),
                     ProjectsPerPage = pageSize,
                     CurrrentPage = pageNum
                 }
