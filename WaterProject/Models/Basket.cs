@@ -8,7 +8,7 @@ namespace WaterProject.Models
     public class Basket
     {
         public List<BasketLineItem> Items { get; set; } = new List<BasketLineItem>();
-        public void AddItem(ProjectModel proj, int quantity)
+        public virtual void AddItem(ProjectModel proj, int quantity)
         {
             BasketLineItem line = Items
                 .Where(project => project.Project.ProjectID == proj.ProjectID)
@@ -26,6 +26,16 @@ namespace WaterProject.Models
             {
                 line.Quantity += quantity;
             }
+        }
+
+        public virtual void RemoveItem(ProjectModel Proj)
+        {
+            Items.RemoveAll(x => x.Project.ProjectID == Proj.ProjectID);
+        }
+
+        public virtual void ClearBasket()
+        {
+            Items.Clear();
         }
 
         public double CalculateTotal()
