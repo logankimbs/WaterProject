@@ -34,6 +34,7 @@ namespace WaterProject
             });
 
             services.AddScoped<IWaterProjectRepository, EFWaterProjectRepository>();
+            services.AddScoped<IDonationRepository, EFDonationRepository>();
 
             services.AddRazorPages();
 
