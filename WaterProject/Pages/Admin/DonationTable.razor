@@ -1,0 +1,56 @@
+﻿<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th colspan="5" class="text-center">@TableTitle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Donations?.Count() > 0)
+        {
+            @foreach (Donation d in Donations)
+            {
+                <tr>
+                    <td>@d.Name</td>
+                    <td>@d.Zip</td>
+                    <td>Project</td>
+                    <td>Quantity</td>
+
+                    <td>
+                        <button class="btn btn-sm btn-danger" @onclick="(x => DonationSelected.InvokeAsync(d.DonationId))">
+                            @ButtonLabel
+                        </button>
+                    </td>
+                </tr>
+
+                @foreach (BasketLineItem bli in d.Lines)
+                {
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>@bli.Project.ProjectName</td>
+                        <td>@bli.Quantity</td>
+                    </tr>
+                }
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No Order</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public string TableTitle { get; set; } = "Donations";
+
+    [Parameter]
+    public IEnumerable<Donation> Donations { get; set; }
+
+    [Parameter]
+    public string ButtonLabel { get; set; } = "Collected";
+
+    [Parameter]
+    public EventCallback<int> DonationSelected { get; set; }
+}
