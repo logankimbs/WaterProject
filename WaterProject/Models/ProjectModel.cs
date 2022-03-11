@@ -8,6 +8,7 @@ namespace WaterProject.Models
         [Key]
         [Required]
         public long ProjectID { get; set; }
+        [Required]
         public string ProjectName { get; set; }
         public string ProjectType { get; set; }
         public string ProjectRegionalProgram { get; set; }
